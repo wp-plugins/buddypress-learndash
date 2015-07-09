@@ -328,8 +328,8 @@ class BuddyPress_LearnDash_Plugin
     {
         
         // CSS > Main
-        //wp_enqueue_style( 'buddypress-learndash', $this->assets_url . '/css/buddypress-learndash.css', array(), '1.0.0', 'all' );
-        wp_enqueue_style( 'buddypress-learndash', $this->assets_url . '/css/buddypress-learndash.min.css', array(), '1.0.0', 'all' );
+        //wp_enqueue_style( 'buddypress-learndash', $this->assets_url . '/css/buddypress-learndash.css', array(), '1.0.2', 'all' );
+        wp_enqueue_style( 'buddypress-learndash', $this->assets_url . '/css/buddypress-learndash.min.css', array(), '1.0.2', 'all' );
    
     }
     

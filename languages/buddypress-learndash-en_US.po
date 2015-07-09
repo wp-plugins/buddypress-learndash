@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress for LearnDash v1.0.0\n"
+"Project-Id-Version: BuddyPress for LearnDash v1.0.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-06-30 03:39+0800\n"
+"PO-Revision-Date: 2015-07-10 02:20+0800\n"
 "Last-Translator: BuddyBoss <support@buddyboss.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -82,35 +82,35 @@ msgstr ""
 msgid "Course Progress Overview"
 msgstr ""
 
-# @ buddypress-learndash
-#: templates/courses.php:44
+# @ boss-learndash
+#: templates/courses.php:45
 #, php-format
 msgid "%s out of %s steps completed"
 msgstr ""
 
-# @ buddypress-learndash
-#: templates/courses.php:48
+# @ boss-learndash
+#: templates/courses.php:51
 #, php-format
 msgid "%s%% Complete"
 msgstr ""
 
 # @ buddypress-learndash
-#: templates/courses.php:54
+#: templates/courses.php:58
 msgid "Quizzes"
 msgstr ""
 
 # @ buddypress-learndash
-#: templates/courses.php:55
+#: templates/courses.php:59
 msgid "Certificate"
 msgstr ""
 
 # @ buddypress-learndash
-#: templates/courses.php:56
+#: templates/courses.php:60
 msgid "Score"
 msgstr ""
 
 # @ buddypress-learndash
-#: templates/courses.php:57
+#: templates/courses.php:61
 msgid "Date"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgid "Settings"
 msgstr ""
 
 # @ buddypress-learndash
-#: includes/bp-learndash-courses.php:10
+#: includes/bp-learndash-courses.php:17
 msgid "Registered Courses"
 msgstr ""
 
@@ -141,6 +141,7 @@ msgstr ""
 
 # @ buddypress-learndash
 #: includes/bp-learndash-functions.php:27
+#: includes/bp-learndash-functions.php:426
 msgid "My Courses"
 msgstr ""
 
@@ -201,7 +202,7 @@ msgid "Course"
 msgstr ""
 
 # @ buddypress-learndash
-#: includes/bp-learndash-group-experiences.php:87 templates/courses.php:83
+#: includes/bp-learndash-group-experiences.php:87 templates/courses.php:87
 msgid "This course has no lessons added yet"
 msgstr ""
 
@@ -297,7 +298,7 @@ msgid "Hidden Course Group"
 msgstr ""
 
 # @ buddypress-learndash
-#: includes/bp-learndash-groups.php:240
+#: includes/bp-learndash-groups.php:254
 msgid "Course Discussion"
 msgstr ""
 
@@ -363,4 +364,24 @@ msgstr ""
 # @ buddypress-learndash
 #: includes/requirements-class.php:40
 msgid "Please install <a href=\"http://www.learndash.com/\">LearnDash</a> plugin first."
+msgstr ""
+
+# @ learndash
+#: includes/bp-learndash-courses.php:12
+msgid "Expand All"
+msgstr ""
+
+# @ boss-learndash
+#: includes/bp-learndash-courses.php:12
+msgid "/"
+msgstr ""
+
+# @ learndash
+#: includes/bp-learndash-courses.php:12
+msgid "Collapse All"
+msgstr ""
+
+# @ buddypress-learndash
+#: includes/bp-learndash-functions.php:459
+msgid "Add to Menu"
 msgstr ""

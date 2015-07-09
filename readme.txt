@@ -4,7 +4,7 @@ Donate link: http://www.buddyboss.com/donate/
 Tags: buddypress, learndash, lms, learning management system, learning, courses, courseware, education, social networking, activity, profiles, messaging, friends, groups, forums, notifications, settings, social, community, networks, networking
 Requires at least: 3.8
 Tested up to: 4.2.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -107,6 +107,11 @@ For BuddyPress customizations, submit your request at [BuddyBoss](http://www.bud
 2. **Course Group Settings** - Add a course to a BuddyPress group and configure its activity actions.
 
 == Changelog ==
+
+= 1.0.2 =
+* Topics and Lessons now link back to Course group
+* Added filter for Course page title
+* Added Course expand/collapse links
 
 = 1.0.1 =
 * Updated readme

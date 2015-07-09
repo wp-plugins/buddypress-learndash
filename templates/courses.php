@@ -40,12 +40,16 @@ if(!empty($quiz_attempts_meta)){
                         <a class="<?php echo $status; ?>" href="<?php echo $course_link; ?>"><?php echo $course->post_title; ?></a>
                         <div class="flip" style="display:none;">
                             <div class="learndash_profile_heading course_overview_heading"><?php _e("Course Progress Overview", "buddypress-learndash"); ?></div>
-                            <div>
-                                <dd class="course_progress" title="<?php echo sprintf(__("%s out of %s steps completed", "buddypress-learndash"),$progress["completed"], $progress["total"]); ?>">
-                                    <div class="course_progress_blue" style="width: <?php echo $progress["percentage"]; ?>%;">
-                                </dd>
-                                <div class="right">
-                                    <?php echo sprintf(__("%s%% Complete", "buddypress-learndash"), $progress["percentage"]); ?>
+                            <div class="overview table">
+                                <div class="table-cell">
+                                    <dd class="course_progress" title="<?php echo sprintf(__("%s out of %s steps completed", 'boss-learndash'),$progress["completed"], $progress["total"]); ?>">
+                                        <div class="course_progress_blue" style="width: <?php echo $progress["percentage"]; ?>%;"> 
+                                    </dd>
+                                </div>
+                                <div class="table-cell">
+                                    <div class="right">
+                                        <?php echo sprintf(__("%s%% Complete", 'boss-learndash'), $progress["percentage"]); ?>
+                                    </div>
                                 </div>
                             </div>
                             <?php if(!empty($quiz_attempts[$course_id])) { ?>

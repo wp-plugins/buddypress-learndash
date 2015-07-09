@@ -405,3 +405,104 @@ function bp_learndash_record_activity( $args = '' ) {
 	}
 
 	add_action( 'bp_has_activities', 'bp_learndash_activity_filter', 110, 2 );
+	
+	/**
+	 * Learndash menu items
+	 * @global type $pagenow
+	 */
+	function learndash_add_custom_menu_items() {
+		global $pagenow;
+		
+		if( 'nav-menus.php' == $pagenow ) {
+			add_meta_box( 'add-learndash-links', 'Learndash', 'wp_nav_menu_item_learndash_links_meta_box', 'nav-menus', 'side', 'low' );
+		}
+	}
+	add_action( 'admin_init', 'learndash_add_custom_menu_items' );
+
+	function wp_nav_menu_item_learndash_links_meta_box( $object ) {
+		global $nav_menu_selected_id;
+
+		$menu_items = array(
+			'#learndashmycourses' => __( 'My Courses', 'buddypress-learndash' ),
+		);
+
+		$menu_items_obj = array();
+		foreach ( $menu_items as $value => $title ) {
+			$menu_items_obj[$title] = new stdClass;
+			$menu_items_obj[$title]->object_id			= esc_attr( $value );
+			$menu_items_obj[$title]->title				= esc_attr( $title );
+			$menu_items_obj[$title]->url				= esc_attr( $value );
+			$menu_items_obj[$title]->description 		= 'description';
+			$menu_items_obj[$title]->db_id 				= 0;
+			$menu_items_obj[$title]->object 			= 'learndash';
+			$menu_items_obj[$title]->menu_item_parent 	= 0;
+			$menu_items_obj[$title]->type 				= 'custom';
+			$menu_items_obj[$title]->target 			= '';
+			$menu_items_obj[$title]->attr_title 		= '';
+			$menu_items_obj[$title]->classes 			= array();
+			$menu_items_obj[$title]->xfn 				= '';
+		}
+
+		$walker = new Walker_Nav_Menu_Checklist( array() );
+		?>
+
+		<div id="learndash-links" class="learndashdiv taxonomydiv">
+			<div id="tabs-panel-learndash-links-all" class="tabs-panel tabs-panel-view-all tabs-panel-active">
+
+				<ul id="learndash-linkschecklist" class="list:learndash-links categorychecklist form-no-clear">
+					<?php echo walk_nav_menu_tree( array_map( 'wp_setup_nav_menu_item', $menu_items_obj ), 0, (object)array( 'walker' => $walker ) ); ?>
+				</ul>
+
+			</div>
+			<p class="button-controls">
+				<span class="add-to-menu">
+					<input type="submit"<?php disabled( $nav_menu_selected_id, 0 ); ?> class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e( 'Add to Menu', 'buddypress-learndash' ); ?>" name="add-learndash-links-menu-item" id="submit-learndash-links" />
+					<span class="spinner"></span>
+				</span>
+			</p>
+		</div><!-- .learndashdiv -->
+		<?php
+	}
+	
+	/**
+	 * learndash_setup_nav_menu_item function.
+	 *
+	 * Generate the urls for Learndash custom menu items.
+	 *
+	 * @access public
+	 * @param object $item
+	 * @return object $item
+	 */
+	function learndash_setup_nav_menu_item( $item ) {
+		global $pagenow, $wp_rewrite;
+
+		if( 'nav-menus.php' != $pagenow && !defined('DOING_AJAX') && isset( $item->url ) && 'custom' == $item->type ) {
+
+			$my_courses_url = bp_get_loggedin_user_link().bp_learndash_profile_courses_slug();
+
+			switch ( $item->url ) {
+
+				case '#learndashmycourses':
+					$item->url = $my_courses_url;
+					break;
+
+				default:
+					break;
+			}
+
+			$_root_relative_current = untrailingslashit( $_SERVER['REQUEST_URI'] );
+			$current_url = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_root_relative_current );
+			$item_url = untrailingslashit( $item->url );
+			$_indexless_current = untrailingslashit( preg_replace( '/' . preg_quote( $wp_rewrite->index, '/' ) . '$/', '', $current_url ) );
+			// Highlight current menu item
+			if ( $item_url && in_array( $item_url, array( $current_url, $_indexless_current, $_root_relative_current ) ) ) {
+				$item->classes[] = 'current-menu-item current_page_item';
+			}
+
+		} // endif nav
+
+		return $item;
+
+	} // End learndash_setup_nav_menu_item()
+	
+	add_filter( 'wp_setup_nav_menu_item', 'learndash_setup_nav_menu_item' );
