@@ -245,15 +245,19 @@ if ( ! class_exists( 'BuddyPress_LearnDash_Groups' ) ) {
 					$course_id = get_post_meta($lesson_id,'course_id',true);
 				}
 				
-				$group_attached = get_post_meta( $course_id, 'bp_course_group', true );
+				$course_students = bp_learndash_get_course_members( $course_id );
+				
+				if ( in_array( bp_loggedin_user_id(), $course_students ) || current_user_can( 'manage_options' ) ) {
+					$group_attached = get_post_meta( $course_id, 'bp_course_group', true );
 
-				if ( empty($group_attached) || $group_attached == '-1' )	return;
+					if ( empty($group_attached) || $group_attached == '-1' )	return $content;
 
-				global $bp;
-				$group_data = groups_get_slug($group_attached);
-				$html = '<p class="bp-group-discussion"><a class="button" href="'. trailingslashit(home_url()).trailingslashit($bp->groups->slug).$group_data .'">'.__('Course Discussion','buddypress-learndash').'</a></p>';
+					global $bp;
+					$group_data = groups_get_slug($group_attached);
+					$html = '<p class="bp-group-discussion"><a class="button" href="'. trailingslashit(home_url()).trailingslashit($bp->groups->slug).$group_data .'">'.__('Course Discussion','buddypress-learndash').'</a></p>';
 
-				$content .= $html;
+					$content .= $html;
+				}
 			}
 			
 			return $content;
