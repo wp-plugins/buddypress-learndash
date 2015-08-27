@@ -15,7 +15,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 		function __construct() {
 			$args = array(
 				'slug' => 'group-course-settings',
-				'name' => 'Course Settings',
+				'name' => __('Course Settings','buddypress-learndash'),
 				'enable_nav_item'	=> false
 			);
 			parent::init( $args );

@@ -3,8 +3,8 @@ Contributors: buddyboss
 Donate link: http://www.buddyboss.com/donate/
 Tags: buddypress, learndash, lms, learning management system, learning, courses, courseware, education, social networking, activity, profiles, messaging, friends, groups, forums, notifications, settings, social, community, networks, networking
 Requires at least: 3.8
-Tested up to: 4.2.2
-Stable tag: 1.0.3
+Tested up to: 4.3
+Stable tag: 1.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -46,9 +46,9 @@ Activity is one of the core features of BuddyPress, allowing users to interact w
 
 If bbPress is enabled, a forum will be tied to every “course group” automatically, using the same name as the course for the forum title. Group members can then discuss the course in one central location.
 
-= About BuddyBoss =
+= Extend LearnDash with 'Social Learner' =
 
-BuddyPress for LearnDash is built by the experienced developers at BuddyBoss who also offer premium [BuddyPress themes](http://www.buddyboss.com/themes/ "BuddyPress themes from BuddyBoss") and [plugins](http://www.buddyboss.com/plugins/ "BuddyPress plugins from BuddyBoss") to build your social network.
+BuddyPress for LearnDash is built by the experienced developers at BuddyBoss who also offer a premium social learning solution called [Social Learner](http://www.buddyboss.com/product/social-learner-learndash "Social Learner for LearnDash").
 
 == Installation ==
 
@@ -85,6 +85,7 @@ No, it does not. You will need to purchase [LearnDash](http://www.learndash.com/
 
 For help setting up and configuring any BuddyBoss plugin please refer to our [tutorials](http://www.buddyboss.com/tutorials/).
 
+
 = Does this plugin require BuddyPress? =
 
 Yes, it requires [BuddyPress](https://wordpress.org/plugins/buddypress/) to work.
@@ -107,6 +108,9 @@ For BuddyPress customizations, submit your request at [BuddyBoss](http://www.bud
 2. **Course Group Settings** - Add a course to a BuddyPress group and configure its activity actions.
 
 == Changelog ==
+
+= 1.0.4 =
+* Added missing translation strings
 
 = 1.0.3 =
 * Fixed content missing in single course if no group is attached

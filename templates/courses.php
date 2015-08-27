@@ -42,13 +42,13 @@ if(!empty($quiz_attempts_meta)){
                             <div class="learndash_profile_heading course_overview_heading"><?php _e("Course Progress Overview", "buddypress-learndash"); ?></div>
                             <div class="overview table">
                                 <div class="table-cell">
-                                    <dd class="course_progress" title="<?php echo sprintf(__("%s out of %s steps completed", 'boss-learndash'),$progress["completed"], $progress["total"]); ?>">
+                                    <dd class="course_progress" title="<?php echo sprintf(__("%s out of %s steps completed", 'buddypress-learndash'),$progress["completed"], $progress["total"]); ?>">
                                         <div class="course_progress_blue" style="width: <?php echo $progress["percentage"]; ?>%;"> 
                                     </dd>
                                 </div>
                                 <div class="table-cell">
                                     <div class="right">
-                                        <?php echo sprintf(__("%s%% Complete", 'boss-learndash'), $progress["percentage"]); ?>
+                                        <?php echo sprintf(__("%s%% Complete", 'buddypress-learndash'), $progress["percentage"]); ?>
                                     </div>
                                 </div>
                             </div>

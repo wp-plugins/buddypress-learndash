@@ -9,7 +9,7 @@ function bp_learndash_courses_page(){
 
 function bp_learndash_courses_expand(){
     ?>
-    <div class="expand_collapse"><a href="#" onClick="return flip_expand_all('#course_list');"><?php _e('Expand All', 'learndash'); ?></a> <span class="sep"><?php _e('/', 'boss-learndash'); ?></span> <a href="#" onClick="return flip_collapse_all('#course_list');"><?php _e('Collapse All','learndash'); ?></a></div>
+    <div class="expand_collapse"><a href="#" onClick="return flip_expand_all('#course_list');"><?php _e('Expand All', 'learndash'); ?></a> <span class="sep"><?php _e('/', 'buddypress-learndash'); ?></span> <a href="#" onClick="return flip_collapse_all('#course_list');"><?php _e('Collapse All','learndash'); ?></a></div>
     <?php
 }
 
