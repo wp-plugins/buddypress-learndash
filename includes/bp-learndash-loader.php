@@ -61,6 +61,7 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 				add_action( 'learndash_course_completed', array( $this, 'bp_learndash_user_course_end_activity' ), 100, 1 );
 				add_action( 'learndash_quiz_completed', array( $this, 'bp_learndash_complete_quiz_activity' ), 100 , 2 );
 				add_action( 'wp_set_comment_status', array( $this, 'bp_learndash_lesson_comment' ), 100, 2 );//Backup in case comment moderation is on
+				add_action( 'comment_post', array( $this, 'bp_learndash_topic_comment_approved' ), 100, 2 );
 				add_action( 'comment_post', array( $this, 'bp_learndash_lesson_comment_approved' ), 100, 2 );
 				add_action( 'comment_post', array( $this, 'bp_learndash_course_comment' ), 100, 2 );
             }
@@ -93,10 +94,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 			if ( empty( $group_attached ) ) {
 				return;
 			}
-			$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-			if ( is_array($bp_learndash_course_activity) && !array_key_exists( 'user_lesson_start', $bp_learndash_course_activity ) ) {
-				return;
-			}
+            if( !bp_learndash_group_activity_is_on( 'user_lesson_start', $group_attached ) ){
+                return;
+            }
 			
 			global $bp;
             $user_link = bp_core_get_userlink( $user_id );
@@ -153,10 +153,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 			if ( empty( $group_attached ) ) {
 				return;
 			}
-			$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-			if ( is_array($bp_learndash_course_activity) && !array_key_exists( 'user_topic_start', $bp_learndash_course_activity ) ) {
-				return;
-			}
+            if( !bp_learndash_group_activity_is_on( 'user_topic_start', $group_attached ) ){
+                return;
+            }
 			
 			global $bp;
             $user_link = bp_core_get_userlink( $user_id );
@@ -191,10 +190,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 			if ( empty( $group_attached ) ) {
 				return;
 			}
-			$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-			if ( !empty($bp_learndash_course_activity) && !array_key_exists( 'user_course_start', $bp_learndash_course_activity ) ) {
-				return;
-			}
+            if( !bp_learndash_group_activity_is_on( 'user_course_start', $group_attached ) ){
+                return;
+            }
 			if ( !empty($remove) )	return;
 			
 			global $bp;
@@ -231,10 +229,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 			if ( empty( $group_attached ) ) {
 				return;
 			}
-			$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-			if ( !empty($bp_learndash_course_activity) && !array_key_exists( 'user_lesson_end', $bp_learndash_course_activity ) ) {
-				return;
-			}
+            if( !bp_learndash_group_activity_is_on( 'user_lesson_end', $group_attached ) ){
+                return;
+            }
                 $user_link = bp_core_get_userlink( $user_id );
                 $lesson_title = get_the_title( $lesson_id );
                 $lesson_link = get_permalink( $lesson_id );
@@ -269,10 +266,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 			if ( empty( $group_attached ) ) {
 				return;
 			}
-			$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-			if ( !empty($bp_learndash_course_activity) && !array_key_exists( 'user_topic_end', $bp_learndash_course_activity ) ) {
-				return;
-			}
+            if( !bp_learndash_group_activity_is_on( 'user_topic_end', $group_attached ) ){
+                return;
+            }
                 $user_link = bp_core_get_userlink( $user_id );
                 $topic_title = get_the_title( $topic_id );
                 $topic_link = get_permalink( $topic_id );
@@ -305,10 +301,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 			if ( empty( $group_attached ) ) {
 				return;
 			}
-			$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-			if ( !empty($bp_learndash_course_activity) && !array_key_exists( 'user_course_end', $bp_learndash_course_activity ) ) {
-				return;
-			}
+            if( !bp_learndash_group_activity_is_on( 'user_course_end', $group_attached ) ){
+                return;
+            }
 				
 			$user_link = bp_core_get_userlink( $user_id );
 			$course_title = get_the_title( $course_id );
@@ -349,10 +344,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 				if ( empty( $group_attached ) ) {
 					return;
 				}
-				$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-				if ( !empty($bp_learndash_course_activity) && !array_key_exists( 'user_lesson_comment', $bp_learndash_course_activity ) ) {
-					return;
-				}
+                if( !bp_learndash_group_activity_is_on( 'user_lesson_comment', $group_attached ) ){
+                    return;
+                }
 
 				$user_link = bp_core_get_userlink( $comment_obj->user_id );
 				$lesson_title = get_the_title( $post_id );
@@ -372,6 +366,48 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 				}
 			}
 		}
+        
+		/**
+		 * Record topic comment preapproved
+		 * @global type $bp
+		 * @param type $comment_ID
+		 * @param type $comment_status
+		 */
+		public function bp_learndash_topic_comment_approved( $comment_ID, $commentdata ) {
+
+			$comment_obj = get_comment( $comment_ID );
+			$post_id = $comment_obj->comment_post_ID;
+			$post_type = get_post_type( $post_id );
+			if ( 'sfwd-topic' == $post_type && $commentdata ) {
+				global $bp;
+				$course_id = get_post_meta($post_id,'course_id',true);
+                $group_attached = get_post_meta( $course_id, 'bp_course_group', true );
+                if ( empty( $group_attached ) ) {
+					return;
+				}
+                if( !bp_learndash_group_activity_is_on( 'user_topic_comment', $group_attached ) ){
+                    return;
+                }
+                
+                $user_link = bp_core_get_userlink( $comment_obj->user_id );
+				$lesson_title = get_the_title( $post_id );
+                $lesson_link = get_permalink( $post_id );
+                $lesson_link_html = '<a href="' . esc_url( $lesson_link ) . '">' . $lesson_title . '</a>';
+				$args = array(
+					'type' => 'activity_update',
+					'action' => apply_filters( 'bp_learndash_user_lesson_comment_activity', sprintf( __( '%1$s commented on topic %2$s', 'buddypress-learndash' ), $user_link, $lesson_link_html ), $comment_obj->user_id, $course_id ),
+					'item_id' => $group_attached,
+					'component' => $bp->groups->id,
+					'hide_sitewide' => true,
+					'content' => $comment_obj->comment_content
+				);
+				$activity_recorded = bp_learndash_record_activity( $args );
+				if($activity_recorded) {
+					bp_activity_add_meta($activity_recorded, 'bp_learndash_group_activity_markup_courseid', $post_id );
+				}
+			}
+		}
+		
 		/**
 		 * Record lesson comment preapproved
 		 * @global type $bp
@@ -392,10 +428,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 				if ( empty( $group_attached ) ) {
 					return;
 				}
-				$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-				if ( !empty($bp_learndash_course_activity) && !array_key_exists( 'user_lesson_comment', $bp_learndash_course_activity ) ) {
-					return;
-				}
+                if( !bp_learndash_group_activity_is_on( 'user_lesson_comment', $group_attached ) ){
+                    return;
+                }
 
 				$user_link = bp_core_get_userlink( $comment_obj->user_id );
 				$lesson_title = get_the_title( $post_id );
@@ -435,10 +470,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 				if ( empty( $group_attached ) ) {
 					return;
 				}
-				$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-				if ( !empty($bp_learndash_course_activity) && !array_key_exists( 'user_course_comment', $bp_learndash_course_activity ) ) {
-					return;
-				}
+                if( !bp_learndash_group_activity_is_on( 'user_course_comment', $group_attached ) ){
+                    return;
+                }
 
 				$user_link = bp_core_get_userlink( $comment_obj->user_id );
 				$course_title = get_the_title( $post_id );
@@ -479,10 +513,9 @@ if( !class_exists('BuddyPress_LearnDash_Loader') ):
 			if ( empty( $group_attached ) ) {
 				return;
 			}
-			$bp_learndash_course_activity = groups_get_groupmeta( $group_attached, 'group_extension_course_setting_activities' );
-			if ( !empty($bp_learndash_course_activity) && !array_key_exists( 'user_quiz_pass', $bp_learndash_course_activity ) ) {
-				return;
-			}
+            if( !bp_learndash_group_activity_is_on( 'user_quiz_pass', $group_attached ) ){
+                return;
+            }
 				$user_link = bp_core_get_userlink( get_current_user_id() );
 				$quiz_title = get_the_title( $quiz_id );
                 $quiz_link = get_permalink( $quiz_id );

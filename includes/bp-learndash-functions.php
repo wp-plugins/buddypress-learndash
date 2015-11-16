@@ -209,7 +209,7 @@ function bp_learndash_attach_forum( $group_id ) {
 	if ( class_exists('bbPress') && bp_is_group_forums_active() ) {
 
 		$group = groups_get_group( array( 'group_id' => $group_id ) );
-		if ( $group->enable_forum == '0' ) {
+		if ( $group->enable_forum == '1' ) {
 			$forum_id = bbp_insert_forum( array( 'post_title' => $group->name ) );
 			bbp_add_forum_id_to_group( $group_id, $forum_id );
 			bbp_add_group_id_to_forum( $forum_id, $group_id );
@@ -506,3 +506,68 @@ function bp_learndash_record_activity( $args = '' ) {
 	} // End learndash_setup_nav_menu_item()
 	
 	add_filter( 'wp_setup_nav_menu_item', 'learndash_setup_nav_menu_item' );
+
+/**
+ * Hide lessons and topics from users if they dont have access to its parent course.
+ * Prevent those from appearing in bp-global-search results.
+ * 
+ * @param string $sql
+ * @param mixed $args
+ * @return string
+ */
+function bp_learndash_bgs_filter_entries( $sql, $args='' ){
+    //dont change if the query is for any other post type
+    if( !isset( $args['post_type'] ) || !in_array( $args['post_type'], array( 'sfwd-lessons', 'sfwd-topic' ) ) ){
+        return $sql;
+    }
+    
+    $filtered_post_ids = array( 1 );//dummy, to return no results
+    /**
+     * Get all course ids the user has access to.
+     * This includes courses open to guest users.
+     */
+    $user_courses = ld_get_mycourses( get_current_user_id() );
+    if( !empty( $user_courses ) && is_array( $user_courses ) ){
+        $args = array( 
+            'post_type'         => $args['post_type'],
+            'posts_per_page'    => -1,
+            'meta_query'        => array(
+                array(
+                    'key'       => 'course_id',
+                    'value'     => $user_courses,
+                    'compare'   => 'IN',
+                ),
+            ),
+        );
+        $pi_q = new WP_Query( $args );
+        
+        if( $pi_q->have_posts() ){
+            $filtered_post_ids = array();
+            while( $pi_q->have_posts() ){
+                $pi_q->the_post();
+                $filtered_post_ids[] = get_the_ID();
+            }
+        }
+        wp_reset_postdata();
+    }
+    
+    $post_ids_csv = implode( ',', $filtered_post_ids );
+    $sql .= " AND id IN ( {$post_ids_csv} ) ";
+    
+    return $sql;
+}
+add_filter( 'BBoss_Global_Search_CPT_sql', 'bp_learndash_bgs_filter_entries', 9, 2 );
+
+function bp_learndash_group_activity_is_on( $key, $group_id=false, $default_true=true ){
+    if( !$group_id ){
+        $group_id = bp_get_group_id();
+    }
+    
+    $retval = $default_true;
+    $bp_sensei_course_activity = groups_get_groupmeta( $group_id, 'group_extension_course_setting_activities' );
+    if( is_array( $bp_sensei_course_activity ) ){
+        $retval = isset( $bp_sensei_course_activity[$key] );
+    }
+    
+    return $retval;
+}

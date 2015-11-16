@@ -71,6 +71,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					<input type="checkbox" name="user_topic_start" value="true" <?php echo $this->bp_is_checked( 'user_topic_start', $bp_learndash_course_activity ); ?> ><?php _e('User creates a topic','buddypress-learndash'); ?><br>
 					<input type="checkbox" name="user_topic_end" value="true" <?php echo $this->bp_is_checked( 'user_topic_end', $bp_learndash_course_activity ); ?> ><?php _e('User completes a topic','buddypress-learndash'); ?><br>
 					<input type="checkbox" name="user_quiz_pass" value="true" <?php echo $this->bp_is_checked( 'user_quiz_pass', $bp_learndash_course_activity ); ?> ><?php _e('User passes a quiz','buddypress-learndash'); ?><br>
+					<input type="checkbox" name="user_lesson_comment" value="true" <?php echo $this->bp_is_checked( 'user_topic_comment', $bp_learndash_course_activity ); ?> ><?php _e('User comments on single topic page','buddypress-learndash'); ?><br>
 					<input type="checkbox" name="user_lesson_comment" value="true" <?php echo $this->bp_is_checked( 'user_lesson_comment', $bp_learndash_course_activity ); ?> ><?php _e('User comments on single lesson page','buddypress-learndash'); ?><br>
 					<input type="checkbox" name="user_course_comment" value="true" <?php echo $this->bp_is_checked( 'user_course_comment', $bp_learndash_course_activity ); ?> ><?php _e('User comments on single course page','buddypress-learndash'); ?><br>
 				</div><br/>
@@ -133,6 +134,7 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 					'user_topic_start'	=> 'true',
 					'user_topic_end'	=> 'true',
 					'user_quiz_pass'	=> 'true',
+					'user_topic_comment'	=> 'true',
 					'user_lesson_comment'	=> 'true',
 					'user_course_comment'	=> 'true'
 				);
@@ -158,6 +160,9 @@ if ( class_exists( 'BP_Group_Extension' ) ) :
 			}
 			if ( isset( $_POST[ 'user_quiz_pass' ] ) ) {
 				$bp_learndash_course_activity['user_quiz_pass'] = $_POST[ 'user_quiz_pass' ];
+			}
+			if ( isset( $_POST[ 'user_topic_comment' ] ) ) {
+				$bp_learndash_course_activity['user_topic_comment'] = $_POST[ 'user_topic_comment' ];
 			}
 			if ( isset( $_POST[ 'user_lesson_comment' ] ) ) {
 				$bp_learndash_course_activity['user_lesson_comment'] = $_POST[ 'user_lesson_comment' ];

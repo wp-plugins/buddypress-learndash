@@ -4,7 +4,7 @@ Donate link: http://www.buddyboss.com/donate/
 Tags: buddypress, learndash, lms, learning management system, learning, courses, courseware, education, social networking, activity, profiles, messaging, friends, groups, forums, notifications, settings, social, community, networks, networking
 Requires at least: 3.8
 Tested up to: 4.3
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -108,6 +108,15 @@ For BuddyPress customizations, submit your request at [BuddyBoss](http://www.bud
 2. **Course Group Settings** - Add a course to a BuddyPress group and configure its activity actions.
 
 == Changelog ==
+
+= 1.0.5 =
+* Fix - Create forum only if checked
+* Fix - Add group activity if comment posted on topics
+* Fix - Hide lessons and topics from users if they don't have access to the parent course
+* Fix - Correctly turn off course group activities according to settings
+* Fix - When on Course Group Forum, the Course page should go back to the course, but not the group
+* Fix - Changed no course found message string
+* Fix - Made the courses tab in a group always point to single course page
 
 = 1.0.4 =
 * Added missing translation strings

@@ -84,7 +84,7 @@ if(!empty($quiz_attempts_meta)){
                 </div>
             <?php } 
 		} else { ?>
-			<p class="no-lesson-msg"><strong><?php _e('This course has no lessons added yet','buddypress-learndash'); ?></strong></p><?php
+			<p class="no-lesson-msg"><strong><?php _e('No courses found.','buddypress-learndash'); ?></strong></p><?php
 		} ?>
     </div>
 </div>
